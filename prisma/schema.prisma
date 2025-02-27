@@ -8,18 +8,21 @@ datasource db {
 }
 
 model Users {
-    user_id       Int            @id @default(autoincrement())
-    email         String?        @unique
-    display_name  String?
-    github        String?
-    linkedin      String?
-    x_link        String?
-    website_link  String?
-    created_at    DateTime       @default(now())
-    progress      Progress[]
-    friends_added Friendship[]   @relation("UserFriends")
-    friend_of     Friendship[]   @relation("FriendOf")
-    notifications Notification[] @relation("UserNotifications")
+    uid            String         @id
+    display_name   String?
+    email          String?        @unique
+    email_verified Boolean?
+    photo_url      String?
+    provider_id    String?
+    github         String?
+    linkedin       String?
+    x_link         String?
+    website_link   String?
+    created_at     DateTime       @default(now())
+    progress       Progress[]
+    friends_added  Friendship[]   @relation("UserFriends")
+    friend_of      Friendship[]   @relation("FriendOf")
+    notifications  Notification[] @relation("UserNotifications")
 }
 
 model Topics {
@@ -32,34 +35,34 @@ model Topics {
 model Progress {
     progress_id Int    @id @default(autoincrement())
     topic_id    Int
-    user_id     Int
+    uid         String
     progress    String
 
     topic Topics @relation(fields: [topic_id], references: [topic_id])
-    user  Users  @relation(fields: [user_id], references: [user_id])
+    user  Users  @relation(fields: [uid], references: [uid])
 
-    @@unique([user_id, topic_id])
+    @@unique([uid, topic_id])
 }
 
 model Friendship {
     friendship_id Int      @id @default(autoincrement())
-    user_id       Int // User who added the friend
-    friend_id     Int // User who was added as friend
+    uid           String
+    friend_id     String
     created_at    DateTime @default(now())
 
-    user   Users @relation("UserFriends", fields: [user_id], references: [user_id])
-    friend Users @relation("FriendOf", fields: [friend_id], references: [user_id])
+    user   Users @relation("UserFriends", fields: [uid], references: [uid])
+    friend Users @relation("FriendOf", fields: [friend_id], references: [uid])
 
-    @@unique([user_id, friend_id])
+    @@unique([uid, friend_id])
 }
 
 model Notification {
     notification_id Int      @id @default(autoincrement())
-    user_id         Int // User who receives the notification
+    uid             String
     message         String
-    type            String // Can be used to categorize notifications (e.g., "FRIENDSHIP")
+    type            String
     is_read         Boolean  @default(false)
     created_at      DateTime @default(now())
 
-    user Users @relation("UserNotifications", fields: [user_id], references: [user_id])
+    user Users @relation("UserNotifications", fields: [uid], references: [uid])
 }

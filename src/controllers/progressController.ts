@@ -12,13 +12,13 @@ export async function updateProgress(req: Request, res: Response): Promise<void>
 
         const updatedProgress = await prisma.progress.upsert({
             where: {
-                user_id_topic_id: { user_id: userId, topic_id: topicId },
+                uid_topic_id: { uid: userId, topic_id: topicId },
             },
             update: {
                 progress,
             },
             create: {
-                user_id: userId,
+                uid: userId,
                 topic_id: topicId,
                 progress,
             },
@@ -32,7 +32,7 @@ export async function updateProgress(req: Request, res: Response): Promise<void>
 
 export async function getOverallProgress(req: Request, res: Response): Promise<void> {
     try {
-        const userId = parseInt(req.params.userId);
+        const userId = req.params.userId;
 
         if (!userId) {
             res.status(400).json({ error: "User ID is required" });
@@ -40,7 +40,7 @@ export async function getOverallProgress(req: Request, res: Response): Promise<v
         }
 
         const progressRecords = await prisma.progress.findMany({
-            where: { user_id: userId },
+            where: { uid: userId },
             select: { progress: true },
         });
 
