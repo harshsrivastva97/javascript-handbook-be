@@ -1,9 +1,9 @@
 import { Router } from "express";
-import { getAllTopicsController } from "../controllers/topicController.js";
-import { authenticateUser } from "../middleware/userMiddleware.js";
+import { getAllTopicsController, getTopicById } from "../controllers/topicController.js";
 
 const router = Router();
 
-router.get("/getAllTopics", authenticateUser, getAllTopicsController);
+router.get("/", getAllTopicsController);
+router.get("/:topic_id", getTopicById);
 
 export default router;

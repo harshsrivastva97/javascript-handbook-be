@@ -1,14 +1,15 @@
-import { PrismaClient, Users } from '@prisma/client';
+import pkg from '@prisma/client';
+const { PrismaClient } = pkg;
+type Users = pkg.Users;
 
 const prisma = new PrismaClient();
 
 interface UserProfile {
-    uid?: string,
+    user_id?: string,
     email?: string,
     display_name?: string,
     email_verified?: boolean,
     photo_url?: string,
-    provider_id?: string,
     github?: string,
     linkedin?: string,
     x_link?: string,
@@ -19,12 +20,11 @@ export async function registerUser(userData: UserProfile): Promise<Users> {
     try {
         const user = await prisma.users.create({
             data: {
-                uid: userData.uid,
-                email: userData.email,
-                display_name: userData.display_name,
-                email_verified: userData.email_verified,
-                photo_url: userData.photo_url,
-                provider_id: userData.provider_id
+                user_id: userData.user_id!,
+                email: userData.email!,
+                display_name: userData.display_name!,
+                email_verified: userData.email_verified ?? false,
+                photo_url: userData.photo_url ?? null,
             }
         });
         return user;
@@ -33,10 +33,10 @@ export async function registerUser(userData: UserProfile): Promise<Users> {
     }
 }
 
-export async function getUserByUID(uid: string): Promise<Users> {
+export async function getUserByUID(user_id: string): Promise<Users> {
     try {
         const user = await prisma.users.findUnique({
-            where: { uid }
+            where: { user_id }
         });
 
         if (!user) {
@@ -49,10 +49,10 @@ export async function getUserByUID(uid: string): Promise<Users> {
     }
 }
 
-export async function updateUserByUID(uid: string, userData: UserProfile): Promise<Users> {
+export async function updateUserByUID(user_id: string, userData: UserProfile): Promise<Users> {
     try {
         const user = await prisma.users.update({
-            where: { uid },
+            where: { user_id },
             data: userData
         });
         return user;

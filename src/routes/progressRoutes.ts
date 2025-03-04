@@ -1,10 +1,9 @@
 import express from "express";
-import { updateProgress, getOverallProgress } from "../controllers/progressController.js";
-import { authenticateUser } from "../middleware/userMiddleware.js";
+import { getUserProgress, updateUserProgress } from "../controllers/progressController.js";
 
 const router = express.Router();
 
-router.put("/update", authenticateUser, updateProgress);
-router.get("/overall", authenticateUser, getOverallProgress);
+router.get("/:user_id", getUserProgress);
+router.put("/", updateUserProgress);
 
 export default router;

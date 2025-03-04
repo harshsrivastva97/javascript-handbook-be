@@ -1,3 +1,3 @@
-import { Users, Friendship, Notification, Progress } from "@prisma/client";
+import { Users, UserProgress } from "@prisma/client";
 
-export type { Users, Friendship, Notification, Progress };
+export type { Users, UserProgress };

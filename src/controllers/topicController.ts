@@ -1,11 +1,19 @@
-import type { Request, Response } from "express";
-import { getAllTopics as getTopicsService } from "../services/topicService.js";
+import { Request, Response } from "express";
+import { getAllTopics, getTopicDetails } from "../services/topicService.js";
 
-export async function getAllTopicsController(req: Request, res: Response) {
+export const getAllTopicsController = async (req: Request, res: Response) => {
     try {
-        const topics = await getTopicsService();
-        res.status(200).json({ message: "Topics fetched", topics });
-    } catch (error: any) {
-        res.status(400).json({ error: error.message });
+        const topics = await getAllTopics();
+        res.status(200).json(topics);
+    } catch (error) {
+        console.error("Controller error:", error);
+        res.status(500).json({ message: "Internal server error" });
     }
-}
+};
+
+
+export const getTopicById = async (req: Request, res: Response) => {
+    const { topic_id } = req.params;
+    const topic = await getTopicDetails(topic_id);
+    res.status(200).json(topic);
+};
