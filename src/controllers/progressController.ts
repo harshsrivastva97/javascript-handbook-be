@@ -14,8 +14,8 @@ export async function getUserProgress(req: Request, res: Response): Promise<void
 export async function updateUserProgress(req: Request, res: Response): Promise<void> {
     try {
         const { user_id, topic_id, status } = req.body;
-        await updateTopicStatus(user_id, topic_id, status);
-        res.status(200).json({ message: "Progress updated successfully" });
+        const response = await updateTopicStatus(user_id, topic_id, status);
+        res.status(200).json(response);
     } catch (error) {
         res.status(500).json({ error: "Failed to update progress" });
     }

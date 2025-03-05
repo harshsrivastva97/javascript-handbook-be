@@ -3,7 +3,7 @@ import { getAllTopicsController, getTopicById } from "../controllers/topicContro
 
 const router = Router();
 
-router.get("/", getAllTopicsController);
-router.get("/:topic_id", getTopicById);
+router.get("/list/:user_id", getAllTopicsController);
+router.get("/details/:topic_id", getTopicById);
 
 export default router;

@@ -1,3 +1,5 @@
+import { ProgressStatus } from "../enums/enums.js";
+
 export interface TopicDetails {
     topic_id: number;
     title: string;
@@ -9,4 +11,5 @@ export interface TopicDetails {
 export interface Topic {
     topic_id: number;
     title: string;
+    status: ProgressStatus;
 }

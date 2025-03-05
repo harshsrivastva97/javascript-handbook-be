@@ -30,7 +30,7 @@ model Users {
 model UserProgress {
     progress_id Int    @id @default(autoincrement())
     user_id     String
-    topic_id    String
+    topic_id    Int
     status      ProgressStatus
     user        Users  @relation(fields: [user_id], references: [user_id], onDelete: Cascade)
 
