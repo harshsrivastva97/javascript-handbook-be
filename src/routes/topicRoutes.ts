@@ -1,9 +1,11 @@
 import { Router } from "express";
-import { getAllTopicsController, getTopicById } from "../controllers/topicController.js";
+import { TopicController } from "../controllers/topicController.js";
 
 const router = Router();
+const topicController = new TopicController();
 
-router.get("/list/:user_id", getAllTopicsController);
-router.get("/details/:topic_id", getTopicById);
+router.get("/list/:user_id", topicController.getAllTopics.bind(topicController));
+router.get("/list", topicController.getAllTopics.bind(topicController));
+router.get("/content/:topic_id", topicController.getTopicContentById.bind(topicController));
 
 export default router;

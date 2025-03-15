@@ -16,6 +16,8 @@ enum ProgressStatus {
 model Users {
     user_id        String         @id
     display_name   String?
+    username       String?        @unique
+    organization   String?
     email          String?        @unique
     email_verified Boolean?
     photo_url      String?
@@ -28,11 +30,11 @@ model Users {
 }
 
 model UserProgress {
-    progress_id Int    @id @default(autoincrement())
+    progress_id Int            @id @default(autoincrement())
     user_id     String
     topic_id    Int
     status      ProgressStatus
-    user        Users  @relation(fields: [user_id], references: [user_id], onDelete: Cascade)
+    user        Users          @relation(fields: [user_id], references: [user_id], onDelete: Cascade)
 
     @@unique([user_id, topic_id])
     @@index([user_id])

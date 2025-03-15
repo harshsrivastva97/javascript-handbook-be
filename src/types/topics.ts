@@ -1,15 +1,17 @@
 import { ProgressStatus } from "../enums/enums.js";
 
-export interface TopicDetails {
+export interface TopicListSchema {
     topic_id: number;
     title: string;
-    explanation: string;
-    code_example: string;
-    key_points: string[];
+    file_name: string;
 }
 
-export interface Topic {
+export interface TopicListResponse extends TopicListSchema {
+    status: ProgressStatus;
+}
+
+export interface TopicDetailsResponse {
     topic_id: number;
     title: string;
-    status: ProgressStatus;
+    content: string;
 }
