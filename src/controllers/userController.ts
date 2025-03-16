@@ -31,8 +31,7 @@ export class UserController {
     
     async updateUserProfile(req: Request, res: Response): Promise<void> {
         try {
-            const uid = req.params.uid;
-            const user = await this.userService.updateUserByUID(uid, req.body);
+            const user = await this.userService.updateUserByUID(req.body);
             res.status(200).json(user);
         } catch (error: unknown) {
             const errorMessage = error instanceof Error ? error.message : 'An error occurred';

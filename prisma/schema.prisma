@@ -24,7 +24,7 @@ model Users {
     github         String?
     linkedin       String?
     x_link         String?
-    website_link   String?
+    website        String?
     created_at     DateTime       @default(now())
     progress       UserProgress[]
 }

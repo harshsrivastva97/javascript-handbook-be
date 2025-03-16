@@ -20,7 +20,8 @@ interface UserProfile {
   github?: string;
   linkedin?: string;
   x_link?: string;
-  website_link?: string;
+  website?: string;
+  organization?: string;
 }
 
 export class UserService {
@@ -69,10 +70,10 @@ export class UserService {
     }
   }
 
-  async updateUserByUID(user_id: string, userData: UserProfile): Promise<ApiResponse<Users>> {
+  async updateUserByUID(userData: UserProfile): Promise<ApiResponse<Users>> {
     try {
       const user = await this.prisma.users.update({
-        where: { user_id },
+        where: { user_id: userData.user_id },
         data: userData,
       });
       return { status: 'success', data: user, message: 'User updated successfully' };
