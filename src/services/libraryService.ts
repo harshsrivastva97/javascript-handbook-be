@@ -1,45 +1,36 @@
-import { TopicModel } from "../models/topics.js";
 import { ProgressService } from "./progressService.js";
 import { ProgressStatus } from "../enums/enums.js";
-import type { TopicListSchema, TopicDetailsResponse } from "../types/topics.js";
+import type { TopicResponse, LibraryDocument } from "../types/library.js";
 import { readFile } from 'fs/promises';
+import { ApiResponse } from "../utils/response.js";
+import LibraryModel from "../models/library.js";
 
-export interface ApiResponse<T> {
-  status: 'success' | 'error';
-  data?: T;
-  message?: string;
-  error?: string;
-}
-
-export class TopicService {
+export class LibraryService {
   private progressService: ProgressService;
 
   constructor() {
     this.progressService = new ProgressService();
   }
 
-  async getAllTopics(user_id?: string): Promise<ApiResponse<TopicListSchema[]>> {
+  async getLibrary(user_id?: string): Promise<ApiResponse<LibraryDocument[]>> {
     try {
-      // First, fetch all topics
-      const topics = await TopicModel.find().lean();
-      
-      // If user_id is not provided, return all topics with default PENDING status
+      const topics = await LibraryModel.find().lean();
+
       if (!user_id) {
         const topicsWithDefaultStatus = topics.map((topic) => ({
           ...topic,
           status: ProgressStatus.PENDING,
         }));
-        
+
         return {
           status: 'success',
           data: topicsWithDefaultStatus,
           message: 'Topics fetched successfully'
         };
       }
-      
-      // If user_id is provided, fetch progress and update statuses
+
       const [, userProgress] = await Promise.all([
-        Promise.resolve(topics), // Already fetched topics above
+        Promise.resolve(topics),
         this.progressService.getUserProgressById(user_id),
       ]);
 
@@ -69,9 +60,9 @@ export class TopicService {
     }
   }
 
-  async getTopicContent(topic_id: string): Promise<ApiResponse<TopicDetailsResponse>> {
+  async getTopicContent(topic_id: string): Promise<ApiResponse<TopicResponse>> {
     try {
-      const topic: TopicListSchema | null = await TopicModel.findOne({ topic_id: Number(topic_id) }).lean();
+      const topic: LibraryDocument | null = await LibraryModel.findOne({ topic_id: Number(topic_id) }).lean();
       if (!topic) {
         return {
           status: 'error',
@@ -80,7 +71,7 @@ export class TopicService {
         };
       }
 
-      const content: string = await readFile(`./src/markdown_files/topics/${topic.file_name}.md`, "utf-8");
+      const content: string = await readFile(`./src/files/library/${topic.file_name}.md`, "utf-8");
       return {
         status: 'success',
         data: {

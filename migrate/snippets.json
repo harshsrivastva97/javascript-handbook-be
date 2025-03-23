@@ -1,0 +1,90 @@
+[
+    {
+        "snippet_id": 1,
+        "filename": "apply.js",
+        "label": "Apply",
+        "difficulty": "beginner",
+        "is_locked": false,
+        "order": 110
+    },
+    {
+        "snippet_id": 2,
+        "filename": "for_each.js",
+        "label": "ForEach",
+        "difficulty": "beginner",
+        "is_locked": false,
+        "order": 120
+    },
+    {
+        "snippet_id": 3,
+        "filename": "map.js",
+        "label": "Map",
+        "difficulty": "beginner",
+        "is_locked": false,
+        "order": 130
+    },
+    {
+        "snippet_id": 4,
+        "filename": "reduce.js",
+        "label": "Reduce",
+        "difficulty": "beginner",
+        "is_locked": false,
+        "order": 140
+    },
+    {
+        "snippet_id": 5,
+        "filename": "filter.js",
+        "label": "Filter",
+        "difficulty": "beginner",
+        "is_locked": false,
+        "order": 150
+    },
+    {
+        "snippet_id": 6,
+        "filename": "bind.js",
+        "label": "Bind",
+        "difficulty": "beginner",
+        "is_locked": false,
+        "order": 160
+    },
+    {
+        "snippet_id": 7,
+        "filename": "call.js",
+        "label": "Call",
+        "difficulty": "beginner",
+        "is_locked": false,
+        "order": 170
+    },
+    {
+        "snippet_id": 8,
+        "filename": "throttle.js",
+        "label": "Throttle",
+        "difficulty": "intermediate",
+        "is_locked": false,
+        "order": 210
+    },
+    {
+        "snippet_id": 9,
+        "filename": "debounce.js",
+        "label": "Debounce",
+        "difficulty": "intermediate",
+        "is_locked": false,
+        "order": 220
+    },
+    {
+        "snippet_id": 10,
+        "filename": "curry.js",
+        "label": "Curry",
+        "difficulty": "intermediate",
+        "is_locked": false,
+        "order": 230
+    },
+    {
+        "snippet_id": 11,
+        "filename": "promise_all.js",
+        "label": "Promise.all",
+        "difficulty": "advanced",
+        "is_locked": false,
+        "order": 310
+    }
+] 

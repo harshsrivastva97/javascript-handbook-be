@@ -1,15 +1,11 @@
-import prisma from "../db/postgres.js";
+import ProgressModel from "../models/progress.js";
 import { ProgressStatus } from "../enums/enums.js";
-import { UserProgress } from "../types/index.js";
-import { ApiResponse } from "./topicService.js";
-
+import { ProgressSchema } from "../types/progress.js";
+import { ApiResponse } from "../utils/response.js";
 export class ProgressService {
     async getUserProgressById(userId: string): Promise<ApiResponse<{ progressRecords: { topic_id: number, status: string }[] }>> {
         try {
-            const progressRecords = await prisma.userProgress.findMany({
-                select: { topic_id: true, status: true },
-                where: { user_id: userId }
-            });
+            const progressRecords = await ProgressModel.find({ user_id: userId });
             return {
                 status: 'success',
                 data: {
@@ -31,32 +27,20 @@ export class ProgressService {
         }
     }
 
-    async updateTopicStatus(userId: string, topicId: number, status: ProgressStatus): Promise<ApiResponse<UserProgress>> {
+    async updateTopicStatus(userId: string, topicId: number, status: ProgressStatus): Promise<ApiResponse<ProgressSchema>> {
         try {
             if (!userId || !topicId || !status) {
                 throw new Error("Missing required parameters");
             }
 
-            const result = await prisma.userProgress.upsert({
-                where: {
-                    user_id_topic_id: { 
-                        user_id: userId, 
-                        topic_id: topicId 
-                    },
-                },
-                update: {
-                    status,
-                },
-                create: {
-                    user_id: userId,
-                    topic_id: topicId,
-                    status,
-                },
-            });
+            await ProgressModel.findOneAndUpdate(
+                { user_id: userId, topic_id: topicId },
+                { $set: { status } },
+                { upsert: true, new: true }
+            );
 
             return {
                 status: 'success',
-                data: result,
                 message: 'Progress updated successfully'
             };
         } catch (error) {
@@ -66,9 +50,7 @@ export class ProgressService {
 
     async resetUserProgressByUserId(userId: string): Promise<ApiResponse<void>> {
         try {
-            await prisma.userProgress.deleteMany({
-                where: { user_id: userId }
-            });
+            await ProgressModel.deleteMany({ user_id: userId });
             return {
                 status: 'success',
                 message: 'User progress reset successfully'

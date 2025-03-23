@@ -1,0 +1,23 @@
+[
+    {
+        "blog_id": 110,
+        "title": "ESNext Features",
+        "filename": "ESNext_Features",
+        "description": "A comprehensive guide to the latest JavaScript features shaping the future of web development. From Top-Level Await to Temporal API, discover how ESNext proposals are making JavaScript more powerful, safer, and more efficient. Learn about cutting-edge features like Records, Pattern Matching, and enhanced Optional Chaining that are transforming how we write modern JavaScript code.",
+        "tags": ["JavaScript", "ESNext", "Web Development"]
+    },
+    {
+        "blog_id": 120,
+        "title": "Performance Hacks",
+        "filename": "Performance_Hacks",
+        "description": "Master essential JavaScript performance optimization techniques that will make your applications fly. Learn practical implementations of debouncing, memoization, and throttling to handle events efficiently. Discover how to optimize DOM operations, use requestAnimationFrame, and implement smart caching strategies to create blazing-fast web applications.",
+        "tags": ["JavaScript", "Performance", "Optimization"]
+    },
+    {
+        "blog_id": 130,
+        "title": "State Management",
+        "filename": "State_Management",
+        "description": "An in-depth comparison of modern state management solutions in JavaScript. Compare Redux, Context API, Vuex, and Pinia to find the perfect fit for your project. Understand the pros, cons, and best use cases for each solution, from Redux's predictable flow to Pinia's modern Vue 3 approach. Make informed decisions for your application's state management needs.",
+        "tags": ["JavaScript", "React", "Vue", "State Management"]
+    }
+]

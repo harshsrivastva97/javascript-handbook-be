@@ -1,0 +1,177 @@
+[
+    {
+        "topic_id": 110,
+        "title": "Introduction",
+        "file_name": "Introduction"
+    },
+    {
+        "topic_id": 120,
+        "title": "Data Types",
+        "file_name": "Datatypes"
+    },
+    {
+        "topic_id": 130,
+        "title": "Variables",
+        "file_name": "Variables"
+    },
+    {
+        "topic_id": 140,
+        "title": "Operators",
+        "file_name": "Operators"
+    },
+    {
+        "topic_id": 150,
+        "title": "Functions",
+        "file_name": "Functions"
+    },
+    {
+        "topic_id": 160,
+        "title": "Objects",
+        "file_name": "Objects"
+    },
+    {
+        "topic_id": 170,
+        "title": "Arrays",
+        "file_name": "Arrays"
+    },
+    {
+        "topic_id": 180,
+        "title": "Closures",
+        "file_name": "Closures"
+    },
+    {
+        "topic_id": 190,
+        "title": "References vs Values",
+        "file_name": "References_vs_Values"
+    },
+    {
+        "topic_id": 200,
+        "title": "Type Coercion",
+        "file_name": "Type_Coercion"
+    },
+    {
+        "topic_id": 210,
+        "title": "Hoisting",
+        "file_name": "Hoisting"
+    },
+    {
+        "topic_id": 220,
+        "title": "Execution Context",
+        "file_name": "Execution_Context"
+    },
+    {
+        "topic_id": 230,
+        "title": "This Keyword",
+        "file_name": "This_Keyword"
+    },
+    {
+        "topic_id": 240,
+        "title": "Prototypes",
+        "file_name": "Prototypes"
+    },
+    {
+        "topic_id": 250,
+        "title": "Classes",
+        "file_name": "Classes"
+    },
+    {
+        "topic_id": 260,
+        "title": "Modules",
+        "file_name": "Modules"
+    },
+    {
+        "topic_id": 270,
+        "title": "Promises",
+        "file_name": "Promises"
+    },
+    {
+        "topic_id": 280,
+        "title": "Async/Await",
+        "file_name": "Async_Await"
+    },
+    {
+        "topic_id": 290,
+        "title": "Event Loop",
+        "file_name": "Event_Loop"
+    },
+    {
+        "topic_id": 300,
+        "title": "Timers",
+        "file_name": "Timers"
+    },
+    {
+        "topic_id": 310,
+        "title": "Async and Defer",
+        "file_name": "Async_Defer"
+    },
+    {
+        "topic_id": 320,
+        "title": "API Calls",
+        "file_name": "API_Calls"
+    },
+    {
+        "topic_id": 330,
+        "title": "Call, Apply, and Bind",
+        "file_name": "Call_Apply_Bind"
+    },
+    {
+        "topic_id": 340,
+        "title": "Mixins and Higher Order Functions",
+        "file_name": "Mixins_and_Higher_Order_Functions"
+    },
+    {
+        "topic_id": 350,
+        "title": "Currying",
+        "file_name": "Currying"
+    },
+    {
+        "topic_id": 360,
+        "title": "Error Handling",
+        "file_name": "Error_Handling"
+    },
+    {
+        "topic_id": 370,
+        "title": "Regular Expressions",
+        "file_name": "Regular_Expressions"
+    },
+    {
+        "topic_id": 380,
+        "title": "Event Bubbling",
+        "file_name": "Event_Bubbling"
+    },
+    {
+                    "topic_id": 390,
+        "title": "Debounce",
+        "file_name": "Debounce"
+    },
+    {
+        "topic_id": 400,
+        "title": "Throttle",
+        "file_name": "Throttle"
+    },
+    {
+        "topic_id": 410,
+        "title": "Memory Management",
+        "file_name": "Memory_Management"
+    },
+    {
+        "topic_id": 420,
+        "title": "Performance",
+        "file_name": "Performance"
+    },
+    {
+        "topic_id": 430,
+        "title": "Storage",
+        "file_name": "Storage"
+    },
+    {
+        "topic_id": 440,
+        "title": "File Handling",
+        "file_name": "File_Handling"
+    },
+    {
+        "topic_id": 450,
+        "title": "Security",
+        "file_name": "Security"
+    }
+] 

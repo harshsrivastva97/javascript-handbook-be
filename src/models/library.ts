@@ -1,11 +1,10 @@
 import { Schema, model } from 'mongoose';
-import { TopicListSchema } from '../types/topics.js';
+import { LibraryDocument } from '../types/library.js';
 
-const TopicSchema = new Schema<TopicListSchema>({
+const LibrarySchema = new Schema<LibraryDocument>({
     topic_id: { type: Number, required: true, unique: true },
     title: { type: String, required: true },
     file_name: { type: String, required: true },
 });
 
-export const TopicModel = model<TopicListSchema>('topicList', TopicSchema, 'topicList');
-
+export default model<LibraryDocument>('library', LibrarySchema, 'library');

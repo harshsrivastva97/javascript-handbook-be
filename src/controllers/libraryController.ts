@@ -1,18 +1,18 @@
 import { Request, Response } from "express";
-import { TopicService } from "../services/topicService.js";
+import { LibraryService } from "../services/libraryService.js";
 import { sendResponse } from "../utils/response.js";
 
-export class TopicController {
-  private topicService: TopicService;
+export class LibraryController {
+  private LibraryService: LibraryService;
 
   constructor() {
-    this.topicService = new TopicService();
+    this.LibraryService = new LibraryService();
   }
 
-  async getAllTopics(req: Request, res: Response): Promise<void> {
+  async getLibraryTopics(req: Request, res: Response): Promise<void> {
     try {
       const { user_id } = req.params;
-      const response = await this.topicService.getAllTopics(user_id);
+      const response = await this.LibraryService.getLibrary(user_id);
       sendResponse(res, response.status === 'success' ? 200 : 500, response);
     } catch (error: unknown) {
       sendResponse(res, 500, {
@@ -32,7 +32,7 @@ export class TopicController {
         });
         return;
       }
-      const response = await this.topicService.getTopicContent(topic_id);
+      const response = await this.LibraryService.getTopicContent(topic_id);
       sendResponse(res, response.status === 'success' ? 200 : 404, response);
     } catch (error: unknown) {
       sendResponse(res, 500, {

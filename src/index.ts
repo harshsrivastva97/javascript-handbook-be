@@ -1,21 +1,16 @@
 // src/index.ts
 import dotenv from "dotenv";
 import app from "./app.js";
-import { PrismaClient } from "@prisma/client";
-import { connectMongoDB } from "./db/mongo.js";
+import { connectMongoDB } from "./config/mongo.js";
 
 dotenv.config();
-
-const prisma = new PrismaClient();
 
 const PORT = process.env.PORT || 9000;
 
 const startServer = async () => {
     try {
-        await prisma.$connect();
-        console.log("PostgreSQL connected successfully");
-
         await connectMongoDB();
+        console.log("MongoDB connected successfully");
 
         app.listen(PORT, () => {
             console.log(`Server running on http://localhost:${PORT}`);

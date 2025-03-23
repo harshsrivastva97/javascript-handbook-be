@@ -2,8 +2,11 @@ import express from "express";
 import cors from "cors";
 import bodyParser from "body-parser";
 import userRoutes from "./routes/userRoutes.js";
-import topicRoutes from "./routes/topicRoutes.js";
+import libraryRoutes from "./routes/libraryRoutes.js";
 import progressRoutes from "./routes/progressRoutes.js";
+import snippetRoutes from "./routes/snippetRoutes.js";
+import blogRoutes from "./routes/blogRoutes.js";
+
 const app = express();
 
 // Middleware
@@ -16,7 +19,9 @@ app.get('/', (_, res) => {
 
 // Routes
 app.use("/api/user", userRoutes);
-app.use("/api/topics", topicRoutes);
+app.use("/api/library", libraryRoutes);
+app.use("/api/snippets", snippetRoutes);
 app.use("/api/progress", progressRoutes);
+app.use("/api/blogs", blogRoutes);
 
 export default app;

@@ -1,16 +1,17 @@
+import { Document } from "mongoose";
 import { ProgressStatus } from "../enums/enums.js";
 
-export interface TopicListSchema {
+export interface LibraryDocument extends Document {
     topic_id: number;
     title: string;
     file_name: string;
 }
 
-export interface TopicListResponse extends TopicListSchema {
+export interface LibraryResponse extends LibraryDocument {
     status: ProgressStatus;
 }
 
-export interface TopicDetailsResponse {
+export interface TopicResponse {
     topic_id: number;
     title: string;
     content: string;

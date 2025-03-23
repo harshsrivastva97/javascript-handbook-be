@@ -3,3 +3,9 @@ export enum ProgressStatus {
     COMPLETED = "COMPLETED",
     PENDING = "PENDING"
 }
+
+export enum Difficulty {
+    BEGINNER = "BEGINNER",
+    INTERMEDIATE = "INTERMEDIATE",
+    ADVANCED = "ADVANCED"
+}
