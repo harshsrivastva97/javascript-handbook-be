@@ -51,7 +51,7 @@ export class SnippetService {
                 };
             }
 
-            const content: string = await readFile(`./src/files/snippets/${snippet.filename}.md`, "utf-8");
+            const content: string = await readFile(`./src/files/snippets/${snippet.filename}`, "utf-8");
             return {
                 status: 'success',
                 data: {

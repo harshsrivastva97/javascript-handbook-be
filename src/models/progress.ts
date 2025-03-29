@@ -9,4 +9,4 @@ const progressSchema = new Schema<ProgressSchema>({
     status: { type: String, required: true },
 });
 
-export default model("Progress", progressSchema);
+export default model("Progress", progressSchema, "progress");
