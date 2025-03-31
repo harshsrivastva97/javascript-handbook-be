@@ -1,59 +1,46 @@
 import { Request, Response } from "express";
-import prisma from "../config/database.js";
+import  {ProgressService} from "../services/progressService.js";
 
-export async function updateProgress(req: Request, res: Response): Promise<void> {
-    try {
-        const { userId, topicId, progress } = req.body;
+export class ProgressController {
+    private progressService: ProgressService;
 
-        if (!userId || !topicId || !progress) {
-            res.status(400).json({ error: "Missing required fields" });
-            return;
-        }
-
-        const updatedProgress = await prisma.progress.upsert({
-            where: {
-                uid_topic_id: { uid: userId, topic_id: topicId },
-            },
-            update: {
-                progress,
-            },
-            create: {
-                uid: userId,
-                topic_id: topicId,
-                progress,
-            },
-        });
-
-        res.json({ message: "Progress updated successfully", updatedProgress });
-    } catch (error) {
-        res.status(500).json({ error: "Failed to update progress" });
+    constructor() {
+        this.progressService = new ProgressService();
     }
-}
 
-export async function getOverallProgress(req: Request, res: Response): Promise<void> {
-    try {
-        const userId = req.params.userId;
-
-        if (!userId) {
-            res.status(400).json({ error: "User ID is required" });
-            return;
+    async getUserProgress(req: Request, res: Response): Promise<void> {
+        try {
+            const user_id = req.params.user_id;
+            const response = await this.progressService.getUserProgressById(user_id);
+            res.status(200).json(response);
+        } catch (error) {
+            res.status(500).json({ error: "Failed to get user progress" });
         }
+    }
 
-        const progressRecords = await prisma.progress.findMany({
-            where: { uid: userId },
-            select: { progress: true },
-        });
-
-        if (progressRecords.length === 0) {
-            res.json({ message: "No progress found for this user", overallProgress: "0%" });
-            return;
+    async updateUserProgress(req: Request, res: Response): Promise<void> {
+        try {
+            const { user_id, topic_id, status } = req.body;
+            const response = await this.progressService.updateTopicStatus(user_id, topic_id, status);
+            res.status(200).json(response);
+        } catch (error) {
+            res.status(500).json({ error: "Failed to update progress" });
         }
+    }
 
-        const totalProgress = progressRecords.reduce((sum, record) => sum + parseFloat(record.progress), 0);
-        const overallProgress = (totalProgress / progressRecords.length).toFixed(2) + "%";
-
-        res.json({ overallProgress });
-    } catch (error) {
-        res.status(500).json({ error: "Failed to fetch overall progress" });
+    async resetUserProgress(req: Request, res: Response): Promise<void> {
+        try {
+            const { user_id } = req.params;
+            if (!user_id) {
+                res.status(400).json({ message: "User ID is required" });
+                return;
+            }
+            await this.progressService.resetUserProgressByUserId(user_id);
+            res.status(200).json({ status: "success", message: "User progress reset successfully" });
+        } catch (error: unknown) {
+            res.status(500).json({
+                message: error instanceof Error ? error.message : "Failed to reset user progress"
+            });
+        }
     }
 }
