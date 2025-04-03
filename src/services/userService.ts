@@ -3,7 +3,6 @@ import { ApiResponse } from "../utils/response.js";
 import { UserProfile, UserSchema } from '../types/users.js'
 
 export class UserService {
-
   async registerUser(userData: UserProfile): Promise<ApiResponse<UserSchema>> {
     try {
       const user = await UserModel.create({
