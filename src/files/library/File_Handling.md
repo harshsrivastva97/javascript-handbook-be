@@ -272,70 +272,70 @@ function updateProgressBar(percent) {
 ## Best Practices
 
 1. **Always validate files** by type, size, and content when security matters.
-   ```javascript
-   function validateFile(file) {
-     // Check file type
-     const validTypes = ['image/jpeg', 'image/png', 'image/gif'];
-     if (!validTypes.includes(file.type)) {
-       throw new Error('Invalid file type');
-     }
-     
-     // Check file size (5MB limit)
-     const maxSize = 5 * 1024 * 1024;
-     if (file.size > maxSize) {
-       throw new Error('File too large');
-     }
-     
-     return true;
-   }
-   ```
+```javascript
+function validateFile(file) {
+  // Check file type
+  const validTypes = ['image/jpeg', 'image/png', 'image/gif'];
+  if (!validTypes.includes(file.type)) {
+    throw new Error('Invalid file type');
+  }
+  
+  // Check file size (5MB limit)
+  const maxSize = 5 * 1024 * 1024;
+  if (file.size > maxSize) {
+    throw new Error('File too large');
+  }
+  
+  return true;
+}
+```
 
 2. **Provide clear feedback** during file operations.
-   ```javascript
-   function updateStatus(message, isError = false) {
-     const status = document.getElementById('status');
-     status.textContent = message;
-     status.className = isError ? 'error' : 'success';
-   }
-   ```
+```javascript
+function updateStatus(message, isError = false) {
+  const status = document.getElementById('status');
+  status.textContent = message;
+  status.className = isError ? 'error' : 'success';
+}
+```
 
 3. **Handle errors gracefully** with user-friendly messages.
-   ```javascript
-   async function safelyReadFile(file) {
-     try {
-       const text = await readFileAsText(file);
-       return text;
-     } catch (error) {
-       console.error('File reading error:', error);
-       updateStatus('Could not read file. Please try again.', true);
-       return null;
-     }
-   }
-   ```
+```javascript
+async function safelyReadFile(file) {
+  try {
+    const text = await readFileAsText(file);
+    return text;
+  } catch (error) {
+    console.error('File reading error:', error);
+    updateStatus('Could not read file. Please try again.', true);
+    return null;
+  }
+}
+```
 
 4. **Clean up resources** to prevent memory leaks.
-   ```javascript
-   function cleanupFileResources() {
-     // Revoke any object URLs
-     objectUrls.forEach(url => URL.revokeObjectURL(url));
-     objectUrls = [];
-     
-     // Remove event listeners
-     fileInput.removeEventListener('change', handleFileSelect);
-   }
-   ```
+```javascript
+function cleanupFileResources() {
+  // Revoke any object URLs
+  objectUrls.forEach(url => URL.revokeObjectURL(url));
+  objectUrls = [];
+  
+  // Remove event listeners
+  fileInput.removeEventListener('change', handleFileSelect);
+}
+```
 
 5. **Use appropriate file reading methods** based on file type.
-   ```javascript
-   function readFileAppropriately(file) {
-     if (file.type.startsWith('image/')) {
-       return readAsDataURL(file); // For images
-     } else if (file.type === 'application/json') {
-       return readAsJSON(file);    // For JSON
-     } else if (file.type.startsWith('text/')) {
-       return readAsText(file);    // For text
-     } else {
-       return readAsBinary(file);  // For other files
-     }
-   }
-   ``` 
+```javascript
+function readFileAppropriately(file) {
+  if (file.type.startsWith('image/')) {
+    return readAsDataURL(file); // For images
+  } else if (file.type === 'application/json') {
+    return readAsJSON(file);    // For JSON
+  } else if (file.type.startsWith('text/')) {
+    return readAsText(file);    // For text
+  } else {
+    return readAsBinary(file);  // For other files
+  }
+}
+``` 

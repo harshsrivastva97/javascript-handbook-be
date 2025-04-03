@@ -131,13 +131,13 @@ window.addEventListener('scroll', throttledScroll);
 ## Best Practices
 
 1. **Always store and clear timer IDs** to prevent memory leaks:
-   ```javascript
-   // React component example
-   useEffect(() => {
-     const id = setInterval(tick, 1000);
-     return () => clearInterval(id); // Cleanup on unmount
-   }, []);
-   ```
+```javascript
+// React component example
+useEffect(() => {
+  const id = setInterval(tick, 1000);
+  return () => clearInterval(id); // Cleanup on unmount
+}, []);
+```
 
 2. **Use requestAnimationFrame for visual updates** instead of setInterval for smoother animations.
 
