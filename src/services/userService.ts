@@ -1,62 +1,63 @@
-import { PrismaClient, Users } from '@prisma/client';
+import UserModel from "../models/users.js";
+import { ApiResponse } from "../utils/response.js";
+import { UserProfile, UserSchema } from '../types/users.js'
 
-const prisma = new PrismaClient();
+export class UserService {
 
-interface UserProfile {
-    uid?: string,
-    email?: string,
-    display_name?: string,
-    email_verified?: boolean,
-    photo_url?: string,
-    provider_id?: string,
-    github?: string,
-    linkedin?: string,
-    x_link?: string,
-    website_link?: string
-}
-
-export async function registerUser(userData: UserProfile): Promise<Users> {
+  async registerUser(userData: UserProfile): Promise<ApiResponse<UserSchema>> {
     try {
-        const user = await prisma.users.create({
-            data: {
-                uid: userData.uid,
-                email: userData.email,
-                display_name: userData.display_name,
-                email_verified: userData.email_verified,
-                photo_url: userData.photo_url,
-                provider_id: userData.provider_id
-            }
-        });
-        return user;
+      const user = await UserModel.create({
+        user_id: userData.user_id!,
+        display_name: userData.display_name!,
+        email_verified: userData.email_verified ?? false,
+        photo_url: userData.photo_url ?? null,
+        created_at: new Date(),
+      });
+      return { status: 'success', data: user, message: 'User registered successfully' };
     } catch (error) {
-        throw new Error(error instanceof Error ? error.message : "Registration failed");
+      return {
+        status: 'error',
+        error: error instanceof Error ? error.message : 'Registration failed',
+        message: 'Failed to register user',
+      };
     }
-}
+  }
 
-export async function getUserByUID(uid: string): Promise<Users> {
+  async getUserByUID(user_id: string): Promise<ApiResponse<UserSchema>> {
     try {
-        const user = await prisma.users.findUnique({
-            where: { uid }
-        });
-
-        if (!user) {
-            throw new Error("User not found");
-        }
-
-        return user;
+      const user = await UserModel.findOne({ user_id });
+      if (!user) {
+        return { status: 'error', error: 'User not found', message: 'User not found' };
+      }
+      return { status: 'success', data: user, message: 'User fetched successfully' };
     } catch (error) {
-        throw new Error(error instanceof Error ? error.message : "User not found");
+      return {
+        status: 'error',
+        error: error instanceof Error ? error.message : 'User not found',
+        message: 'Failed to fetch user',
+      };
     }
-}
+  }
 
-export async function updateUserByUID(uid: string, userData: UserProfile): Promise<Users> {
+  async updateUserByUID(userData: UserProfile): Promise<ApiResponse<UserSchema>> {
     try {
-        const user = await prisma.users.update({
-            where: { uid },
-            data: userData
-        });
-        return user;
+      const user = await UserModel.findOneAndUpdate(
+        { user_id: userData.user_id },
+        userData,
+        { new: true }
+      );
+      
+      if (!user) {
+        return { status: 'error', error: 'User not found', message: 'User not found' };
+      }
+      
+      return { status: 'success', data: user, message: 'User updated successfully' };
     } catch (error) {
-        throw new Error(error instanceof Error ? error.message : "User not found");
+      return {
+        status: 'error',
+        error: error instanceof Error ? error.message : 'User not found',
+        message: 'Failed to update user',
+      };
     }
+  }
 }
